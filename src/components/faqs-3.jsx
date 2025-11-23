@@ -7,33 +7,33 @@ export default function FAQsThree() {
     const faqItems = [
         {
             id: 'item-1',
-            icon: 'clock',
-            question: 'What are your business hours?',
-            answer: 'Our customer service team is available Monday through Friday from 9:00 AM to 8:00 PM EST, and weekends from 10:00 AM to 6:00 PM EST. During holidays, hours may vary and will be posted on our website.',
+            icon: 'circle-question-mark',
+            question: 'How do I ask a research question?',
+            answer: 'Click the “Ask Question” after login. Provide a clear title, detailed context, and any references or data you have so researchers can give precise and valuable answers.',
         },
         {
             id: 'item-2',
-            icon: 'credit-card',
-            question: 'How do subscription payments work?',
-            answer: 'Subscription payments are automatically charged to your default payment method on the same day each month or year, depending on your billing cycle. You can update your payment information and view billing history in your account dashboard.',
+            icon: 'message-square-text',
+            question: 'Who can answer questions?',
+            answer: 'Any verified member of the community can answer. Researchers, students, and domain experts contribute based on their expertise. Quality responses are highlighted through upvotes and moderation.',
         },
         {
             id: 'item-3',
-            icon: 'truck',
-            question: 'Can I expedite my shipping?',
-            answer: 'Yes, we offer several expedited shipping options at checkout. Next-day and 2-day shipping are available for most U.S. addresses if orders are placed before 2:00 PM EST. International expedited shipping options vary by destination.',
+            icon: 'search',
+            question: 'How do I find existing research or similar questions?',
+            answer: 'Use the search bar at the top of the site. You can filter by tags, field of study, date, or popularity to quickly find relevant discussions or previously answered questions.',
         },
         {
             id: 'item-4',
-            icon: 'globe',
-            question: 'Do you offer localized support?',
-            answer: 'We offer multilingual support in English, Spanish, French, German, and Japanese. Our support team can assist customers in these languages via email, chat, and phone during standard business hours for each respective region.',
+           icon: 'thumbs-up',
+            question: 'How do upvotes and reputation work?',
+            answer: 'Quality questions and answers earn upvotes, which increase your reputation score. Higher reputation unlocks privileges like commenting, editing, and moderating.',
         },
         {
             id: 'item-5',
-            icon: 'package',
-            question: 'How do I track my order?',
-            answer: 'Once your order ships, you\'ll receive a confirmation email with a tracking number. You can use this number on our website or the carrier\'s website to track your package. You can also view order status and tracking information in your account dashboard under "Order History".',
+            icon: 'square-pen',
+            question: 'Can I edit my question after posting?',
+            answer: 'Yes. You can update your question anytime to add clarifications, additional data, or corrections. Editing helps others give more accurate answers.',
         },
     ]
 
