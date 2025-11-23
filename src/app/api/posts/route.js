@@ -35,3 +35,59 @@ export async function GET() {
     }
     
 }
+
+export async function DELETE(req) {
+  await dbConnect();
+
+    try {
+        const { id } = await req.json();
+        await Post.findByIdAndDelete(id);
+        return NextResponse.json({ success: true });
+    } catch (err) {
+        console.error(err);
+        return NextResponse.json(
+            { success: false, error: err.message },
+            { status: 500 }
+        );
+    }
+}
+
+// export async function PUT(req) {
+//   await dbConnect();    
+//     try {
+//         const { id, title, description } = await req.json();
+//         const post = await Post.findByIdAndUpdate(
+//             id,
+//             { title, description },
+//             { new: true }
+//         );
+//         return NextResponse.json({ success: true, post });
+//     } catch (err) {
+//         console.error(err);
+//         return NextResponse.json(
+//             { success: false, error: err.message },
+//             { status: 500 }
+//         );
+//     }       
+
+// }
+
+export async function PATCH(req) {
+  await dbConnect();  
+    try {
+        const { id, title, description } = await req.json();
+        const post = await Post.findByIdAndUpdate(
+            id,
+            { title, description },
+            { new: true }
+        );
+        return NextResponse.json({ success: true, post });
+    } catch (err) {
+        console.error(err);
+        return NextResponse.json(
+            { success: false, error: err.message },
+            { status: 500 }
+        );
+    }   
+
+}
