@@ -1,5 +1,6 @@
 import ContentSection from "@/components/content-4";
 import CommunitySection from "@/components/content-6";
+import FAQsThree from "@/components/faqs-3";
 import HeroSection from "@/components/hero-section";
 // import Image from "next/image";
 
@@ -10,6 +11,7 @@ export default function Home() {
         <HeroSection></HeroSection>
         <ContentSection></ContentSection>
         <CommunitySection></CommunitySection>
+        <FAQsThree></FAQsThree>
       </div>
     
     </>
