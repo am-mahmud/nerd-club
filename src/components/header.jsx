@@ -7,9 +7,9 @@ import React from 'react'
 import { cn } from '@/lib/utils'
 
 const menuItems = [
-    { name: 'Home', href: '#link' },
-    { name: 'Posts', href: '#link' },
-    { name: 'About', href: '#link' },
+    { name: 'Home', href: '/' },
+    { name: 'Posts', href: '/posts' },
+    { name: 'About', href: '/about' },
 ]
 
 export const HeroHeader = () => {
