@@ -13,7 +13,7 @@ export default function ManagePosts() {
     <div className="mx-auto max-w-6xl min-h-screen px-12 pt-24">
       <h1 className="text-xl font-semibold mb-4">Manage Posts</h1>
 
-      <Table>
+      <Table className="table-fixed w-full">
         <TableHeader>
           <TableRow>
             <TableHead>Title</TableHead>

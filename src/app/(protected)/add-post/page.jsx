@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-// import { Textarea } from "@/components/ui/textarea";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function AddPost() {
   return (
@@ -11,7 +11,7 @@ export default function AddPost() {
 
       <div className="space-y-4">
         <Input placeholder="Post title" />
-        {/* <Textarea placeholder="Post content..." className="h-40"/> */}
+        <Textarea placeholder="Post content..." className="h-40"/>
         <Button>Create Post</Button>
       </div>
     </div>
