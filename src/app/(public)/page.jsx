@@ -1,11 +1,15 @@
+import ContentSection from "@/components/content-4";
+import CommunitySection from "@/components/content-6";
 import HeroSection from "@/components/hero-section";
 // import Image from "next/image";
 
 export default function Home() {
   return (
     <>
-      <div className="h-screen">
+      <div className="min-h-screen">
         <HeroSection></HeroSection>
+        <ContentSection></ContentSection>
+        <CommunitySection></CommunitySection>
       </div>
     
     </>
