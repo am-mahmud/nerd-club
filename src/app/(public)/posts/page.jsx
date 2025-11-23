@@ -1,10 +1,16 @@
-
-
+import { PostCard } from '@/components/post-card';
 import { AnimatedGroup } from '@/components/ui/animated-group';
 import { TextEffect } from '@/components/ui/text-effect';
 import React from 'react';
 
+
+
 const page = () => {
+
+    const posts = [
+        { id: 1, title: "First Post", excerpt: "This is the description..." },
+        { id: 2, title: "Second Post", excerpt: "Another quick summary..." },
+    ];
     return (
         <div className='relative mx-auto max-w-6xl min-h-screen px-12 pt-24'>
             <TextEffect
@@ -26,19 +32,10 @@ const page = () => {
                 },
             }}>
 
-                <div className='grid grid-cols-3 gap-2 mt-6'>
-                    <div>
-                        <h1>Post 1</h1>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero unde placeat quas temporibus id est velit distinctio atque, magni quibusdam qui, optio reiciendis rem accusamus doloribus soluta, aut eos? Minima!</p>
-                    </div>
-                    <div>
-                        <h1>Post 1</h1>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero unde placeat quas temporibus id est velit distinctio atque, magni quibusdam qui, optio reiciendis rem accusamus doloribus soluta, aut eos? Minima!</p>
-                    </div>
-                    <div>
-                        <h1>Post 1</h1>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero unde placeat quas temporibus id est velit distinctio atque, magni quibusdam qui, optio reiciendis rem accusamus doloribus soluta, aut eos? Minima!</p>
-                    </div>
+                <div className="grid grid-cols-3 gap-6 mt-3">
+                    {posts.map((p) => (
+                        <PostCard key={p.id} post={p} />
+                    ))}
                 </div>
             </AnimatedGroup>
 
