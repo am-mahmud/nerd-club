@@ -8,7 +8,6 @@ export function PostCard({ post }) {
 
     const [votes, setVotes] = useState(post.votes || 0);
     const [userVote, setUserVote] = useState(0);
-    // 0 = no vote, 1 = upvoted, -1 = downvoted
 
      const sendVote = async (type) => {
         try {
@@ -72,7 +71,7 @@ export function PostCard({ post }) {
                 <p className="text-sm text-gray-600 pb-6">{post.description}</p>
 
                 <div className="flex gap-4 items-center">
-                    {/* UPVOTE */}
+
                     <button
                         onClick={handleUpvote}
                         className={`flex items-center gap-1 cursor-pointer transition ${userVote === 1 ? "text-blue-600" : "text-gray-500"
@@ -82,10 +81,10 @@ export function PostCard({ post }) {
                     </button>
 
 
-                    {/* VOTE COUNT */}
+                  
                     <span className="text-sm font-medium">{votes}</span>
 
-                    {/* DOWNVOTE */}
+                  
                     <button
                         onClick={handleDownvote}
                         className={`flex items-center gap-1 cursor-pointer transition ${userVote === -1 ? "text-red-600" : "text-gray-500"
