@@ -30,3 +30,19 @@ export async function PUT(req, context) {
         );
     }
 }
+
+export async function DELETE(req) {
+  await dbConnect();
+
+    try {
+        const { id } = await req.json();
+        await Post.findByIdAndDelete(id);
+        return NextResponse.json({ success: true });
+    } catch (err) {
+        console.error(err);
+        return NextResponse.json(
+            { success: false, error: err.message },
+            { status: 500 }
+        );
+    }
+}
