@@ -2,16 +2,25 @@ import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongo';
 import Post from '@/models/Post';
 
-export async function PUT(req, { params }) {
+export async function PUT(req, context) {
     await dbConnect();
+    
     try {
-        const { id } = params;
-        const { title, description } = await req.json();
+        const params = await context.params;  
+        const id = params.id;
+        console.log("PARAM ID =", id);
+
+        const body = await req.json();
+        console.log("BODY =", body);
+
+        const { title, description } = body;
+
         const post = await Post.findByIdAndUpdate(
             id,
             { title, description },
             { new: true }
         );
+
         return NextResponse.json({ success: true, post });
     } catch (err) {
         console.error(err);

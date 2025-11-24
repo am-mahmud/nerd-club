@@ -3,47 +3,53 @@ import { AnimatedGroup } from '@/components/ui/animated-group';
 import { TextEffect } from '@/components/ui/text-effect';
 import React from 'react';
 
+const page = async () => {
 
+  const getPosts = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/api/posts", {
+        cache: 'no-store',
+      });
 
-const page = () => {
+      const data = await res.json();
+      return data.posts;
+    } catch (error) {
+      console.log("Error fetching posts:", error);
+      return [];
+    }
+  };
 
-    const posts = [
-        { id: 1, title: "First Post", excerpt: "This is the description..." },
-        { id: 2, title: "Second Post", excerpt: "Another quick summary..." },
-    ];
-    return (
-        <div className='relative mx-auto max-w-6xl min-h-screen px-12 pt-24'>
-            <TextEffect
-                preset="fade-in-blur"
-                speedSegment={0.3}
-                as="h1"
-                className="text-balance text-3xl font-medium ">
-                All Posts
-            </TextEffect>
+  const posts = await getPosts();
 
-            <AnimatedGroup variants={{
-                container: {
-                    visible: {
-                        transition: {
-                            staggerChildren: 0.05,
-                            delayChildren: 0.75,
-                        },
-                    },
-                },
-            }}>
+  return (
+    <div className='relative mx-auto max-w-6xl min-h-screen px-12 pt-24'>
+      <TextEffect
+        preset="fade-in-blur"
+        speedSegment={0.3}
+        as="h1"
+        className="text-balance text-3xl font-medium "
+      >
+        All Posts
+      </TextEffect>
 
-                <div className="grid grid-cols-3 gap-6 mt-3">
-                    {posts.map((p) => (
-                        <PostCard key={p.id} post={p} />
-                    ))}
-                </div>
-            </AnimatedGroup>
-
-
-
-
+      <AnimatedGroup variants={{
+        container: {
+          visible: {
+            transition: {
+              staggerChildren: 0.05,
+              delayChildren: 0.75,
+            },
+          },
+        },
+      }}>
+        <div className="grid grid-cols-3 gap-6 mt-3">
+          {posts.map((post) => (
+            <PostCard key={post._id} post={post} />
+          ))}
         </div>
-    );
+      </AnimatedGroup>
+    </div>
+  );
 };
 
 export default page;
