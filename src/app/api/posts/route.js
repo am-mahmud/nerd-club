@@ -21,19 +21,24 @@ export async function POST(req) {
 }
 
 export async function GET() {
-  await dbConnect();        
+  await dbConnect();
 
-    try {  
-        const posts = await Post.find({});
-        return NextResponse.json({ success: true, posts });
-    } catch (err) {
-        console.error(err);
-        return NextResponse.json(
-            { success: false, error: err.message },
-            { status: 500 }
-        );
-    }
-    
+  try {
+    const posts = await Post.find({});
+    const total = await Post.countDocuments();
+
+    return NextResponse.json({
+      success: true,
+      posts,
+      totalPosts: total,      
+    });
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json(
+      { success: false, error: err.message },
+      { status: 500 }
+    );
+  }
 }
 
 
