@@ -1,12 +1,12 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const PostSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-  },
-  description: String,
-}
-, { timestamps: true });
+    title: String,
+    description: String,
+    votes: {
+        type: Number,
+        default: 0,
+    }
+});
 
-export default mongoose.models.Post || mongoose.model('Post', PostSchema);
+export default mongoose.models.Post || mongoose.model("Post", PostSchema);
