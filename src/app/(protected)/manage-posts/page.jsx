@@ -5,10 +5,23 @@ import {
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-export default function ManagePosts() {
-    const posts = [
-        { id: 1, title: "First Post", date: "2024-01-01" },
-    ];
+export default async function ManagePosts() {
+   
+    const getPosts = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/api/posts", {
+        cache: 'no-store',
+      });
+
+      const data = await res.json();
+      return data.posts;
+    } catch (error) {
+      console.log("Error fetching posts:", error);
+      return [];
+    }
+  };
+
+  const posts = await getPosts();
 
     return (
         <div className="mx-auto max-w-6xl min-h-screen px-12 pt-24">
@@ -23,12 +36,12 @@ export default function ManagePosts() {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {posts.map((p) => (
-                        <TableRow key={p.id}>
-                            <TableCell>{p.title}</TableCell>
-                            <TableCell>{p.date}</TableCell>
+                    {posts.map((post) => (
+                        <TableRow key={post._id}>
+                            <TableCell>{post.title}</TableCell>
+                            <TableCell>{post.date}</TableCell>
                             <TableCell>
-                                <Link href={`/edit-post/${p.id}`}>
+                                <Link href={`/edit-post/${post._id}`}>
                                     <Button size="sm" variant="outline">Edit</Button>
                                 </Link>
                                 <Button size="sm" variant="destructive" className="ml-2">
