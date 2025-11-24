@@ -16,7 +16,6 @@ export function PostCard({ post }) {
                     <ArrowBigDown />
                     <MessageCircle />
                 </div>
-
             </CardContent>
 
         </Card>
