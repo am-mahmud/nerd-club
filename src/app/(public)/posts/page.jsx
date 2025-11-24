@@ -27,9 +27,9 @@ const page = async () => {
         preset="fade-in-blur"
         speedSegment={0.3}
         as="h1"
-        className="text-balance text-3xl font-medium "
+        className="text-balance text-center text-3xl font-medium pb-3 "
       >
-        All Posts
+       Recent Posts
       </TextEffect>
 
       <AnimatedGroup variants={{
