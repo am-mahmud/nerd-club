@@ -39,7 +39,7 @@ export default function HeroSection() {
                                 speedSegment={0.3}
                                 as="h1"
                                 className="text-balance text-5xl font-medium md:text-6xl">
-                                Nerd Club - Your Gateway to Tech Innovation
+                                Nerd Club - Don't Close Your Curiosity Door 
                             </TextEffect>
                             <TextEffect
                                 per="line"
@@ -48,7 +48,7 @@ export default function HeroSection() {
                                 delay={0.5}
                                 as="p"
                                 className="mx-auto mt-6 max-w-2xl text-pretty text-lg">
-                                Join Nerd Club to explore cutting-edge technology, collaborate with like-minded enthusiasts, and turn your innovative ideas into reality.
+                                Join Nerd Club & Your Gateway to Innovation
                             </TextEffect>
 
                             <AnimatedGroup
