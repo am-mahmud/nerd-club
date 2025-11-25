@@ -29,6 +29,12 @@ export default function LoginPage() {
         } else {
             setMessage("Account created! You can now login.");
         }
+
+        if (!data.error) {
+            setName("");
+            setEmail("");
+            setPassword("");
+        }
     };
 
     return (
@@ -68,31 +74,26 @@ export default function LoginPage() {
                             </svg>
                             <span>Google</span>
                         </Button>
-                        {/* <Button type="button" variant="outline">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="1em"
-                                height="1em"
-                                viewBox="0 0 256 256">
-                                <path fill="#f1511b" d="M121.666 121.666H0V0h121.666z"></path>
-                                <path fill="#80cc28" d="M256 121.666H134.335V0H256z"></path>
-                                <path fill="#00adef" d="M121.663 256.002H0V134.336h121.663z"></path>
-                                <path fill="#fbbc09" d="M256 256.002H134.335V134.336H256z"></path>
-                            </svg>
-                            <span>Microsoft</span>
-                        </Button> */}
+
                     </div>
 
                     <hr className="my-4 border-dashed" />
 
                     <div className="space-y-5">
 
-
                         <div className="space-y-2">
                             <Label htmlFor="name" className="block text-sm">
                                 Name
                             </Label>
-                            <Input type="text" required name="name" id="name" onChange={(e) => setName(e.target.value)}/>
+                            <Input
+                                type="text"
+                                required
+                                name="name"
+                                id="name"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                            />
+
                         </div>
 
 
@@ -100,7 +101,15 @@ export default function LoginPage() {
                             <Label htmlFor="email" className="block text-sm">
                                 Username
                             </Label>
-                            <Input type="email" required name="email" id="email" onChange={(e) => setEmail(e.target.value)} />
+                            <Input
+                                type="email"
+                                required
+                                name="email"
+                                id="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+
                         </div>
 
                         <div className="space-y-2">
@@ -112,7 +121,10 @@ export default function LoginPage() {
                                 required
                                 name="pwd"
                                 id="pwd"
-                                className="input sz-md variant-mixed"  onChange={(e) => setPassword(e.target.value)} />
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+
                         </div>
 
                         <Button type="submit" className="w-full">Continue</Button>
