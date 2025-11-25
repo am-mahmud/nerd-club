@@ -5,6 +5,7 @@ import { Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import React from 'react'
 import { cn } from '@/lib/utils'
+import { useSession, signOut } from "next-auth/react";
 
 const menuItems = [
     { name: 'Home', href: '/' },
@@ -15,6 +16,7 @@ const menuItems = [
 export const HeroHeader = () => {
     const [menuState, setMenuState] = React.useState(false)
     const [isScrolled, setIsScrolled] = React.useState(false)
+    const { data: session } = useSession();
 
     React.useEffect(() => {
         const handleScroll = () => {
@@ -80,31 +82,49 @@ export const HeroHeader = () => {
                             </div>
 
                             <div
-                                className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
-                              
-                                <Button
-                                    asChild
-                                    variant="outline"
-                                    size="sm"
-                                    className={cn(isScrolled && 'lg:hidden')}>
-                                    <Link href="/login">
-                                        <span>Login</span>
-                                    </Link>
-                                </Button>
-                                <Button asChild size="sm" className={cn(isScrolled && 'lg:hidden')}>
-                                    <Link href="/register">
-                                        <span>Sign Up</span>
-                                    </Link>
-                                </Button>
-                                <Button
-                                    asChild
-                                    size="sm"
-                                    className={cn(isScrolled ? 'lg:inline-flex' : 'hidden')}>
-                                    <Link href="/register">
-                                        <span>Get Started</span>
-                                    </Link>
-                                </Button>
+                                className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit"
+                            >
+                                {session ? (
+                                    // 🟢 USER LOGGED IN → Show Logout Button
+                                    <Button
+                                        onClick={() => signOut()}
+                                        variant="outline"
+                                        size="sm"
+                                        className={cn(isScrolled && "lg:hidden")}
+                                    >
+                                        Logout
+                                    </Button>
+                                ) : (
+                                    // 🔴 USER LOGGED OUT → Show Login + Sign Up + Get Started
+                                    <>
+                                        <Button
+                                            asChild
+                                            variant="outline"
+                                            size="sm"
+                                            className={cn(isScrolled && "lg:hidden")}
+                                        >
+                                            <Link href="/login">Login</Link>
+                                        </Button>
+
+                                        <Button
+                                            asChild
+                                            size="sm"
+                                            className={cn(isScrolled && "lg:hidden")}
+                                        >
+                                            <Link href="/register">Sign Up</Link>
+                                        </Button>
+
+                                        <Button
+                                            asChild
+                                            size="sm"
+                                            className={cn(isScrolled ? "lg:inline-flex" : "hidden")}
+                                        >
+                                            <Link href="/register">Get Started</Link>
+                                        </Button>
+                                    </>
+                                )}
                             </div>
+
                         </div>
                     </div>
                 </div>
