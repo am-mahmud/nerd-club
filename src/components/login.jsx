@@ -1,10 +1,49 @@
+"use client";
+
 import { LogoIcon } from '@/components/logo'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+
 
 export default function LoginPage() {
+    const router = useRouter();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        setMessage("");
+
+        try {
+            const res = await fetch("/api/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email, password }),
+            });
+
+            const data = await res.json();
+
+            if (!data.error) {
+                setMessage("Login successful!");
+                setEmail("");
+                setPassword("");
+
+                // Redirect after login
+                window.location.href = "/dashboard";
+            } else {
+                setMessage(data.error);
+            }
+        } catch (error) {
+            setMessage("Something went wrong.");
+        }
+    };
+
     return (
         <section
             className="flex min-h-screen px-4 py-16 md:py-32">
@@ -26,7 +65,13 @@ export default function LoginPage() {
                             <Label htmlFor="email" className="block text-sm">
                                 Username
                             </Label>
-                            <Input type="email" required name="email" id="email" />
+                            <Input
+                                type="email"
+                                required
+                                id="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
                         </div>
 
                         <div className="space-y-0.5">
@@ -43,12 +88,13 @@ export default function LoginPage() {
                             <Input
                                 type="password"
                                 required
-                                name="pwd"
-                                id="pwd"
-                                className="input sz-md variant-mixed" />
+                                id="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
                         </div>
 
-                        <Button className="w-full">Sign In</Button>
+                        <Button type="submit" className="w-full">Sign In</Button>
                     </div>
 
                     <div className="my-6 grid grid-cols-[1fr_auto_1fr] items-center gap-3">
@@ -79,19 +125,6 @@ export default function LoginPage() {
                             </svg>
                             <span>Google</span>
                         </Button>
-                        {/* <Button type="button" variant="outline">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="1em"
-                                height="1em"
-                                viewBox="0 0 256 256">
-                                <path fill="#f1511b" d="M121.666 121.666H0V0h121.666z"></path>
-                                <path fill="#80cc28" d="M256 121.666H134.335V0H256z"></path>
-                                <path fill="#00adef" d="M121.663 256.002H0V134.336h121.663z"></path>
-                                <path fill="#fbbc09" d="M256 256.002H134.335V134.336H256z"></path>
-                            </svg>
-                            <span>Microsoft</span>
-                        </Button> */}
                     </div>
                 </div>
 
@@ -99,7 +132,7 @@ export default function LoginPage() {
                     <p className="text-accent-foreground text-center text-sm">
                         Don't have an account ?
                         <Button asChild variant="link" className="px-2">
-                            <Link href="#">Create account</Link>
+                            <Link href="/register">Create account</Link>
                         </Button>
                     </p>
                 </div>
