@@ -8,7 +8,7 @@ export default function CommunitySection() {
                     <h2 className="text-3xl font-semibold">
                         Built by the Community <br /> for the Community
                     </h2>
-                    <p className="mt-6">Harum quae dolore orrupti aut temporibus ariatur.</p>
+                    <p className="mt-6">Collaborate on open-source and community projects</p>
                 </div>
                 <div className="mx-auto mt-12 flex max-w-lg flex-wrap justify-center gap-3">
                     <Link
