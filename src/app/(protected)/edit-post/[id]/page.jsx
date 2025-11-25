@@ -1,12 +1,29 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
-import { redirect } from "next/navigation";
-import EditPostClient from "./EditPostClient";
+"use client";
 
-export default async function EditPostPage({ params }) {
-  const session = await getServerSession(authOptions);
+import React from 'react';
 
-  if (!session) redirect("/login");
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 
-  return <EditPostClient />;
-}
+const EditPostClient = () => {
+    return (
+        <div className="mx-auto max-w-6xl min-h-screen px-12 pt-24">
+            <h1 className="text-2xl font-semibold mb-4">Edit Post</h1>
+
+            <div className="space-y-4">
+
+                <Input placeholder="Post title..." />
+
+                <Textarea
+                    className="h-40"
+                    placeholder="Post content..."
+                />
+
+                <Button>Update</Button>
+            </div>
+        </div>
+    );
+};
+
+export default EditPostClient;
