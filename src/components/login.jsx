@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react';
 
 
 export default function LoginPage() {
@@ -13,6 +14,7 @@ export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [message, setMessage] = useState("");
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -34,7 +36,7 @@ export default function LoginPage() {
                 setEmail("");
                 setPassword("");
 
-                // Redirect after login
+               
                 window.location.href = "/dashboard";
             } else {
                 setMessage(data.error);
@@ -47,7 +49,7 @@ export default function LoginPage() {
     return (
         <section
             className="flex min-h-screen px-4 py-16 md:py-32">
-            <form
+            <form onSubmit={handleLogin}
                 action=""
                 className="bg-muted m-auto h-fit w-full max-w-sm overflow-hidden rounded-[calc(var(--radius)+.125rem)] border shadow-md shadow-zinc-950/5 dark:[--color-muted:var(--color-zinc-900)]">
                 <div
