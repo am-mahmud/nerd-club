@@ -7,7 +7,7 @@ const page = async () => {
 
   const getPosts = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/posts", {
+      const res = await fetch("http://localhost:3001/api/posts", {
         cache: 'no-store',
       });
 

@@ -80,65 +80,295 @@
 // }
 
 
-import { NextResponse } from "next/server";
-import dbConnect from "@/lib/mongo";
-import Post from "@/models/Post";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+// import { NextResponse } from "next/server";
+// import dbConnect from "@/lib/mongo";
+// import Post from "@/models/Post";
+// import { getServerSession } from "next-auth/next";
+// import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-export async function POST(req, { params }) {
-  await dbConnect();
+// export async function POST(req, { params }) {
+//   await dbConnect();
 
-  const session = await getServerSession(authOptions);
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+//   const session = await getServerSession(authOptions);
+//   if (!session?.user?.id) {
+//     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+//   }
 
-  const userId = session.user.id;
-  const { id } = params;
-  const { voteType } = await req.json();
+//   const userId = session.user.id;
+//   const { id } = params;
+//   const { voteType } = await req.json();
 
-  // Vote value mapping
-  const VOTE = {
-    up: 1,
-    down: -1,
-    remove: 0,
-  };
+//   // Vote value mapping
+//   const VOTE = {
+//     up: 1,
+//     down: -1,
+//     remove: 0,
+//   };
 
-  const newVote = VOTE[voteType];
-  if (newVote === undefined) {
-    return NextResponse.json({ error: "Invalid vote type" }, { status: 400 });
-  }
+//   const newVote = VOTE[voteType];
+//   if (newVote === undefined) {
+//     return NextResponse.json({ error: "Invalid vote type" }, { status: 400 });
+//   }
 
-  // Fetch previous vote (needed for delta)
-  const post = await Post.findById(id).select("userVotes votes");
-  if (!post) {
-    return NextResponse.json({ error: "Post not found" }, { status: 404 });
-  }
+//   // Fetch previous vote (needed for delta)
+//   const post = await Post.findById(id).select("userVotes votes");
+//   if (!post) {
+//     return NextResponse.json({ error: "Post not found" }, { status: 404 });
+//   }
 
-  const prev = post.userVotes?.get(userId) || 0;
-  const delta = newVote - prev; // +1, -1, +2, -2, etc.
+//   const prev = post.userVotes?.get(userId) || 0;
+//   const delta = newVote - prev; // +1, -1, +2, -2, etc.
 
-  // ----- Atomic MongoDB update -----
-  const update = {
-    $inc: { votes: delta }, // atomic vote change
-  };
+//   // ----- Atomic MongoDB update -----
+//   const update = {
+//     $inc: { votes: delta }, // atomic vote change
+//   };
 
-  if (newVote === 0) {
-    update.$unset = { [`userVotes.${userId}`]: "" };
-  } else {
-    update.$set = { [`userVotes.${userId}`]: newVote };
-  }
+//   if (newVote === 0) {
+//     update.$unset = { [`userVotes.${userId}`]: "" };
+//   } else {
+//     update.$set = { [`userVotes.${userId}`]: newVote };
+//   }
 
-  const updatedPost = await Post.findOneAndUpdate(
-    { _id: id },
-    update,
-    { new: true } // return updated document
-  );
+//   const updatedPost = await Post.findOneAndUpdate(
+//     { _id: id },
+//     update,
+//     { new: true } // return updated document
+//   );
 
-  return NextResponse.json({
-    ok: true,
-    votes: updatedPost.votes,
-    userVote: newVote,
-  });
-}
+//   return NextResponse.json({
+//     ok: true,
+//     votes: updatedPost.votes,
+//     userVote: newVote,
+//   });
+// }
+
+
+// import { NextResponse } from "next/server";
+// import dbConnect from "@/lib/mongo";
+// import Post from "@/models/Post";
+// import { getServerSession } from "next-auth";
+// import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+
+// export async function POST(req, { params }) {
+//   await dbConnect();
+
+//   // FIX: Must pass req to getServerSession in App Router
+//   const session = await getServerSession(authOptions, req);
+
+//   if (!session?.user?.id) {
+//     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+//   }
+
+//   const userId = session.user.id;
+//   const { id } = params;
+//   const { voteType } = await req.json();
+
+//   const VOTE = {
+//     up: 1,
+//     down: -1,
+//     remove: 0
+//   };
+
+//   const newVote = VOTE[voteType];
+//   if (newVote === undefined) {
+//     return NextResponse.json({ error: "Invalid vote type" }, { status: 400 });
+//   }
+
+//   const post = await Post.findById(id).select("userVotes votes");
+//   if (!post) {
+//     return NextResponse.json({ error: "Post not found" }, { status: 404 });
+//   }
+
+//   const prev = post.userVotes?.get(userId) || 0;
+//   const delta = newVote - prev;
+
+//   const update = { $inc: { votes: delta } };
+
+//   if (newVote === 0) {
+//     update.$unset = { [`userVotes.${userId}`]: "" };
+//   } else {
+//     update.$set = { [`userVotes.${userId}`]: newVote };
+//   }
+
+//   const updatedPost = await Post.findOneAndUpdate(
+//     { _id: id },
+//     update,
+//     { new: true }
+//   );
+
+//   return NextResponse.json({
+//     ok: true,
+//     votes: updatedPost.votes,
+//     userVote: newVote
+//   });
+// }
+
+// import { NextResponse } from "next/server";
+// import dbConnect from "@/lib/mongo";
+// import Post from "@/models/Post";
+// import { getServerSession } from "next-auth";
+// import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+
+// export async function POST(req, { params }) {
+//   await dbConnect();
+
+//   // IMPORTANT FIX — pass req
+//   const session = await getServerSession(authOptions, req);
+
+//   if (!session?.user?.id) {
+//     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+//   }
+
+//   const userId = session.user.id;
+//   const { id } = params;
+//   const { voteType } = await req.json();
+
+//   const VOTE = { up: 1, down: -1, remove: 0 };
+//   const newVote = VOTE[voteType];
+
+//   if (newVote === undefined) {
+//     return NextResponse.json({ error: "Invalid vote type" }, { status: 400 });
+//   }
+
+//   const post = await Post.findById(id).select("userVotes votes");
+//   if (!post) {
+//     return NextResponse.json({ error: "Post not found" }, { status: 404 });
+//   }
+
+//   const prev = post.userVotes?.get(userId) || 0;
+//   const delta = newVote - prev;
+
+//   const update = { $inc: { votes: delta } };
+
+//   if (newVote === 0) {
+//     update.$unset = { [`userVotes.${userId}`]: "" };
+//   } else {
+//     update.$set = { [`userVotes.${userId}`]: newVote };
+//   }
+
+//   const updatedPost = await Post.findOneAndUpdate(
+//     { _id: id },
+//     update,
+//     { new: true }
+//   );
+
+//   return NextResponse.json({
+//     ok: true,
+//     votes: updatedPost.votes,
+//     userVote: newVote
+//   });
+// }
+
+
+
+// import { NextResponse } from "next/server";
+// import dbConnect from "@/lib/mongo";
+// import Post from "@/models/Post";
+// import { auth } from "@/lib/auth";
+//   // <-- NEW
+
+// export async function POST(req, { params }) {
+//   await dbConnect();
+
+//   // ✔ Works in App Router without req/res
+//   const session = await auth();
+
+//   if (!session?.user?.id) {
+//     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+//   }
+
+//   const userId = session.user.id;
+//   const { id } = params;
+
+//   const { voteType } = await req.json();
+
+//   const VOTE = { up: 1, down: -1, remove: 0 };
+//   const newVote = VOTE[voteType];
+
+//   if (newVote === undefined) {
+//     return NextResponse.json({ error: "Invalid vote type" }, { status: 400 });
+//   }
+
+//   const post = await Post.findById(id).select("userVotes votes");
+
+//   if (!post) {
+//     return NextResponse.json({ error: "Post not found" }, { status: 404 });
+//   }
+
+//   const prev = post.userVotes?.get(userId) || 0;
+//   const delta = newVote - prev;
+
+//   const update = {
+//     $inc: { votes: delta },
+//   };
+
+//   if (newVote === 0) {
+//     update.$unset = { [`userVotes.${userId}`]: "" };
+//   } else {
+//     update.$set = { [`userVotes.${userId}`]: newVote };
+//   }
+
+//   const updatedPost = await Post.findOneAndUpdate(
+//     { _id: id },
+//     update,
+//     { new: true }
+//   );
+
+//   return NextResponse.json({
+//     ok: true,
+//     votes: updatedPost.votes,
+//     userVote: newVote,
+//   });
+// }
+
+// import { auth } from "@/lib/auth";
+// import dbConnect from "@/lib/mongo";
+// import Post from "@/models/Post";
+
+// export async function POST(req, { params }) {
+//   console.log("SESSION CHECK START");
+
+//   try {
+//     await dbConnect();
+//     console.log("auth function:", auth);
+
+//     const session = await auth();
+//     console.log("session result:", session);
+
+//     if (!session || !session.user) {
+//       return Response.json(
+//         { error: "Not authenticated" },
+//         { status: 401 }
+//       );
+//     }
+
+//     const { type } = await req.json();
+//     const { id } = params;
+
+//     if (!["upvote", "downvote"].includes(type)) {
+//       return Response.json({ error: "Invalid vote type" }, { status: 400 });
+//     }
+
+//     const update =
+//       type === "upvote" ? { $inc: { votes: 1 } } : { $inc: { votes: -1 } };
+
+//     const updatedPost = await Post.findOneAndUpdate(
+//       { _id: id },
+//       update,
+//       { new: true }
+//     );
+
+//     if (!updatedPost) {
+//       return Response.json({ error: "Post not found" }, { status: 404 });
+//     }
+
+//     return Response.json({ success: true, votes: updatedPost.votes });
+//   } catch (err) {
+//     console.error("Vote API Error:", err);
+//     return Response.json(
+//       { error: "Server error", details: err.message },
+//       { status: 500 }
+//     );
+//   }
+// }

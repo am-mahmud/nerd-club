@@ -1,189 +1,104 @@
-// "use client";
-
-// import { Card, CardHeader, CardContent } from "@/components/ui/card";
-// import { ArrowBigDown, ArrowBigUp, MessageCircle } from "lucide-react";
-// import { useState } from "react";
-
-// export function PostCard({ post }) {
-
-//     const [votes, setVotes] = useState(post.votes || 0);
-//     const [userVote, setUserVote] = useState(0);
-
-//      const sendVote = async (type) => {
-//         try {
-//             await fetch(`http://localhost:3001/api/post/${post._id}/vote`, {
-//                 method: "POST",
-//                 headers: { "Content-Type": "application/json" },
-//                 body: JSON.stringify({ voteType: type }),
-//             });
-//         } catch (err) {
-//             console.error("Vote API error:", err);
-//         }
-//     };
-
-//      const handleUpvote = async () => {
-//         setVotes(prev => {
-//             if (userVote === 1) {
-//                 setUserVote(0);
-//                 sendVote("remove");
-//                 return prev - 1;
-//             }
-
-//             if (userVote === -1) {
-//                 setUserVote(1);
-//                 sendVote("switchToUp");
-//                 return prev + 2;
-//             }
-
-//             setUserVote(1);
-//             sendVote("up");
-//             return prev + 1;
-//         });
-//     };
-
-//      const handleDownvote = async () => {
-//         setVotes(prev => {
-//             if (userVote === -1) {
-//                 setUserVote(0);
-//                 sendVote("remove");
-//                 return prev + 1;
-//             }
-
-//             if (userVote === 1) {
-//                 setUserVote(-1);
-//                 sendVote("switchToDown");
-//                 return prev - 2;
-//             }
-
-//             setUserVote(-1);
-//             sendVote("down");
-//             return prev - 1;
-//         });
-//     };
-
-//     return (
-//         <Card className="hover:shadow-md transition">
-//             <CardHeader>
-//                 <h2 className="font-bold text-base">{post.title}</h2>
-//             </CardHeader>
-
-//             <CardContent>
-//                 <p className="text-sm text-gray-600 pb-6">{post.description}</p>
-
-//                 <div className="flex gap-4 items-center">
-
-//                     <button
-//                         onClick={handleUpvote}
-//                         className={`flex items-center gap-1 cursor-pointer transition ${userVote === 1 ? "text-blue-600" : "text-gray-500"
-//                             }`}
-//                     >
-//                         <ArrowBigUp />
-//                     </button>
-
-
-                  
-//                     <span className="text-sm font-medium">{votes}</span>
-
-                  
-//                     <button
-//                         onClick={handleDownvote}
-//                         className={`flex items-center gap-1 cursor-pointer transition ${userVote === -1 ? "text-red-600" : "text-gray-500"
-//                             }`}
-//                     >
-//                         <ArrowBigDown />
-//                     </button>
-
-//                     <MessageCircle />
-//                 </div>
-//             </CardContent>
-//         </Card>
-//     );
-// }
-
-
-
 "use client";
 
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
-import { ArrowBigDown, ArrowBigUp, MessageCircle } from "lucide-react";
-import { useState, useEffect } from "react";
-import { useSession, signIn } from "next-auth/react";
+import { ArrowBigUp, ArrowBigDown, MessageCircle } from "lucide-react";
+import { useState } from "react";
 
-export function PostCard({ post: initialPost }) {
-  const { data: session } = useSession();
-  const [votes, setVotes] = useState(initialPost.votes || 0);
-  const [userVote, setUserVote] = useState(initialPost.userVote || 0); // optional initial value
+export function PostCard({ post }) {
+  const [votes, setVotes] = useState(post.votes || 0);
+  const [userVote, setUserVote] = useState(post.userVote || 0); // initial from server
+  const [loading, setLoading] = useState(false);
 
-  // Optionally, you can fetch user's vote on mount if initialPost didn't include it
-  useEffect(() => {
-    setVotes(initialPost.votes || 0);
-    // if backend returned user-specific vote, set it:
-    if (typeof initialPost.userVote !== "undefined") setUserVote(initialPost.userVote);
-  }, [initialPost]);
+  // Safe vote API call
+ async function sendVote(id, type) {
+  try {
+    const res = await fetch(`/api/posts/${id}/vote`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ type }),
+    });
 
-  const sendVote = async (type) => {
-    if (!session) {
-      // prompt login
-      signIn(); // redirect to sign in page
-      return;
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "Vote failed");
+
+    return data.votes;
+  } catch (err) {
+    console.error("Vote failed:", err.message);
+  }
+}
+
+
+  // Click handlers
+  const handleUpvote = async () => {
+    if (loading) return;
+    setLoading(true);
+
+    const type =
+      userVote === 1 ? "remove"
+      : userVote === -1 ? "up"
+      : "up";
+
+    const res = await sendVote(type);
+
+    if (res) {
+      setVotes(res.votes);
+      setUserVote(res.userVote);
     }
 
-    try {
-      const res = await fetch(`/api/posts/${initialPost._id}/vote`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ voteType: type })
-      });
+    setLoading(false);
+  };
 
-      const data = await res.json();
-      if (!res.ok) {
-        console.error("Vote failed:", data);
-        return;
-      }
+  const handleDownvote = async () => {
+    if (loading) return;
+    setLoading(true);
 
-      // backend authoritative values
-      setVotes(data.votes);
-      setUserVote(data.userVote);
-    } catch (err) {
-      console.error("Vote API error:", err);
+    const type =
+      userVote === -1 ? "remove"
+      : userVote === 1 ? "down"
+      : "down";
+
+    const res = await sendVote(type);
+
+    if (res) {
+      setVotes(res.votes);
+      setUserVote(res.userVote);
     }
-  };
 
-  const handleUpvote = () => {
-    // local optimisitic UI could be used, but we rely on backend response for correctness
-    if (userVote === 1) sendVote("remove");
-    else sendVote("up");
-  };
-
-  const handleDownvote = () => {
-    if (userVote === -1) sendVote("remove");
-    else sendVote("down");
+    setLoading(false);
   };
 
   return (
     <Card className="hover:shadow-md transition">
       <CardHeader>
-        <h2 className="font-bold text-base">{initialPost.title}</h2>
+        <h2 className="font-bold text-base">{post.title}</h2>
       </CardHeader>
 
       <CardContent>
-        <p className="text-sm text-gray-600 pb-6">{initialPost.description}</p>
+        <p className="text-sm text-gray-600 pb-6">{post.description}</p>
 
-        <div className="flex gap-4 items-center">
+        <div className="flex items-center gap-4">
+
+          {/* UPVOTE */}
           <button
+            disabled={loading}
             onClick={handleUpvote}
-            className={`flex items-center gap-1 cursor-pointer transition ${userVote === 1 ? "text-blue-600" : "text-gray-500"}`}
-            aria-label="upvote"
+            className={`cursor-pointer transition ${
+              userVote === 1 ? "text-blue-600" : "text-gray-500"
+            }`}
           >
             <ArrowBigUp />
           </button>
 
+          {/* VOTE COUNT */}
           <span className="text-sm font-medium">{votes}</span>
 
+          {/* DOWNVOTE */}
           <button
+            disabled={loading}
             onClick={handleDownvote}
-            className={`flex items-center gap-1 cursor-pointer transition ${userVote === -1 ? "text-red-600" : "text-gray-500"}`}
-            aria-label="downvote"
+            className={`cursor-pointer transition ${
+              userVote === -1 ? "text-red-600" : "text-gray-500"
+            }`}
           >
             <ArrowBigDown />
           </button>
