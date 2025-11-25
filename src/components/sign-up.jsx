@@ -1,10 +1,36 @@
+"use client";
+
 import { LogoIcon } from '@/components/logo'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import Link from 'next/link'
+import { useState } from 'react';
 
 export default function LoginPage() {
+
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [message, setMessage] = useState("");
+
+    const handleRegister = async (e) => {
+        e.preventDefault();
+
+        const res = await fetch("/api/register", {
+            method: "POST",
+            body: JSON.stringify({ name, email, password }),
+        });
+
+        const data = await res.json();
+
+        if (data.error) {
+            setMessage(data.error);
+        } else {
+            setMessage("Account created! You can now login.");
+        }
+    };
+
     return (
         <section
             className="flex min-h-screen  px-4 py-16 md:py-32 ">
