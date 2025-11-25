@@ -4,9 +4,12 @@ export default function ContentSection() {
     return (
         <section>
             <div className="mx-auto max-w-5xl space-y-8 px-6 md:space-y-12">
-                <div className="mx-auto max-w-xl space-y-6 text-center md:space-y-12">
-                    <h1 className="text-balance text-4xl font-medium lg:text-5xl">About Nerd Club</h1>
-                    <p>Lyra is evolving to be more than just the models. It supports an entire ecosystem — from products to the APIs and platforms helping developers and businesses innovate.</p>
+                <div >
+                    <h1 className="text-balance text-center text-4xl font-medium lg:text-5xl pb-5">About Nerd Club</h1>
+                    <p className='pb-3'>Nerd Club is a community-driven platform for developers, researchers, and tech enthusiasts. Whether you're just starting out or already building advanced systems, this is your space to learn, collaborate, and bring ideas to life.</p>
+                    <p className='pb-3' >At Nerd Club, we believe technology grows when people grow.Our mission is to empower curious minds with knowledge, tools, and a supportive community. We bring together learners, builders, and innovators to collaborate, ask questions, share insights, and create meaningful projects that push technology forward.</p>
+                    <p className='pb-3'>To become the most vibrant, accessible, and impactful tech community where anyone — regardless of background — can explore ideas, build skills, and participate in shaping the future of technology.</p>
+                    <p className='pb-3'>We are programmers, designers, researchers, engineers, and lifelong learners.Nerd Club is built on curiosity, creativity, and a shared passion for solving problems. We’re not just a tech community — we’re a safe environment where growth, exploration, and experimentation are encouraged every day.</p>
                 </div>
                 <img
                     className="rounded-(--radius) grayscale"

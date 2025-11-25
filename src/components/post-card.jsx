@@ -20,7 +20,7 @@ export function PostCard({ post }) {
 
     
           <button
-            disabled={loading}
+            // disabled={loading}
             // onClick={handleUpvote}
             // className={`cursor-pointer transition ${
             //   userVote === 1 ? "text-blue-600" : "text-gray-500"
@@ -30,11 +30,11 @@ export function PostCard({ post }) {
           </button>
 
         
-          <span className="text-sm font-medium">{votes}</span>
+          {/* <span className="text-sm font-medium">{votes}</span> */}
 
     
           <button
-            disabled={loading}
+            // disabled={loading}
             // onClick={handleDownvote}
             // className={`cursor-pointer transition ${
             //   userVote === -1 ? "text-red-600" : "text-gray-500"
