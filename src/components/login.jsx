@@ -4,47 +4,67 @@ import { LogoIcon } from '@/components/logo'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { signIn } from 'next-auth/react';
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react';
 
 
 export default function LoginPage() {
-    const router = useRouter();
+    // const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
+    // const [error, setError] = useState("");
     const [message, setMessage] = useState("");
 
-    const handleLogin = async (e) => {
+    async function handleLogin(e) {
         e.preventDefault();
         setMessage("");
 
-        try {
-            const res = await fetch("/api/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email, password }),
-            });
+        const res = await signIn("credentials", {
+            email,
+            password,
+            redirect: false,
+        });
 
-            const data = await res.json();
-
-            if (!data.error) {
-                setMessage("Login successful!");
-                setEmail("");
-                setPassword("");
-
-               
-                window.location.href = "/dashboard";
-            } else {
-                setMessage(data.error);
-            }
-        } catch (error) {
-            setMessage("Something went wrong.");
+        if (res.error) {
+            setMessage(res.error);
+        } else {
+            window.location.href = "/dashboard";
         }
-    };
+
+    }
+
+    // const handleLogin = async (e) => {
+    //     e.preventDefault();
+    //     setMessage("");
+
+    //     try {
+    //         const res = await fetch("/api/login", {
+    //             method: "POST",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //             body: JSON.stringify({ email, password }),
+    //         });
+
+    //         const data = await res.json();
+
+    //         if (!data.error) {
+    //             setMessage("Login successful!");
+    //             setEmail("");
+    //             setPassword("");
+
+
+    //             window.location.href = "/dashboard";
+    //         } else {
+    //             setMessage(data.error);
+    //         }
+    //     } catch (error) {
+    //         setMessage("Something went wrong.");
+    //     }
+    // };
+
 
     return (
         <section

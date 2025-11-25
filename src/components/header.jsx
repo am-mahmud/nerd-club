@@ -85,17 +85,17 @@ export const HeroHeader = () => {
                                 className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit"
                             >
                                 {session ? (
-                                    // 🟢 USER LOGGED IN → Show Logout Button
+                                   
                                     <Button
                                         onClick={() => signOut()}
-                                        variant="outline"
+                                        // variant="outline"
                                         size="sm"
                                         className={cn(isScrolled && "lg:hidden")}
                                     >
                                         Logout
                                     </Button>
                                 ) : (
-                                    // 🔴 USER LOGGED OUT → Show Login + Sign Up + Get Started
+                                    
                                     <>
                                         <Button
                                             asChild
