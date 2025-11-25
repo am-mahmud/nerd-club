@@ -34,7 +34,7 @@ export default function LoginPage() {
     return (
         <section
             className="flex min-h-screen  px-4 py-16 md:py-32 ">
-            <form
+            <form onSubmit={handleRegister}
                 action=""
                 className="bg-card m-auto h-fit w-full max-w-sm rounded-[calc(var(--radius)+.125rem)] border p-0.5 shadow-md dark:[--color-muted:var(--color-zinc-900)]">
                 <div className="p-8 pb-6">
@@ -86,26 +86,21 @@ export default function LoginPage() {
                     <hr className="my-4 border-dashed" />
 
                     <div className="space-y-5">
-                        <div className="grid grid-cols-2 gap-3">
-                            <div className="space-y-2">
-                                <Label htmlFor="firstname" className="block text-sm">
-                                    First Name
-                                </Label>
-                                <Input type="text" required name="firstname" id="firstname" />
-                            </div>
-                            <div className="space-y-2">
-                                <Label htmlFor="lastname" className="block text-sm">
-                                    Last Name
-                                </Label>
-                                <Input type="text" required name="lastname" id="lastname" />
-                            </div>
+
+
+                        <div className="space-y-2">
+                            <Label htmlFor="name" className="block text-sm">
+                                Name
+                            </Label>
+                            <Input type="text" required name="name" id="name" onChange={(e) => setName(e.target.value)}/>
                         </div>
+
 
                         <div className="space-y-2">
                             <Label htmlFor="email" className="block text-sm">
                                 Username
                             </Label>
-                            <Input type="email" required name="email" id="email" />
+                            <Input type="email" required name="email" id="email" onChange={(e) => setEmail(e.target.value)} />
                         </div>
 
                         <div className="space-y-2">
@@ -117,10 +112,10 @@ export default function LoginPage() {
                                 required
                                 name="pwd"
                                 id="pwd"
-                                className="input sz-md variant-mixed" />
+                                className="input sz-md variant-mixed"  onChange={(e) => setPassword(e.target.value)} />
                         </div>
 
-                        <Button className="w-full">Continue</Button>
+                        <Button type="submit" className="w-full">Continue</Button>
                     </div>
                 </div>
 
