@@ -13,10 +13,7 @@ import bcrypt from "bcryptjs";
 
 export const authOptions = {
   session: { strategy: "jwt" },
-//   pages: {
-//     // optional: custom sign in page paths if you make them
-//     // signIn: "/auth/signin"
-//   },
+
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -31,21 +28,18 @@ export const authOptions = {
         const isValid = await bcrypt.compare(credentials.password, user.password);
         if (!isValid) return null;
 
-        // Return an object that will be encoded in the JWT
         return { id: String(user._id), name: user.name, email: user.email };
       }
     })
   ],
   callbacks: {
     async jwt({ token, user }) {
-      // On initial sign in, user contains profile from authorize
       if (user) {
         token.id = user.id;
       }
       return token;
     },
     async session({ session, token }) {
-      // Attach user id to session client-side
       if (token?.id) session.user.id = token.id;
       return session;
     }
