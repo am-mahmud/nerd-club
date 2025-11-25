@@ -5,8 +5,10 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
+
 export default function EditPost() {
-  const { id } = useParams();
+  // const { id } = useParams();
+
 
   return (
     <div className="mx-auto max-w-6xl min-h-screen px-12 pt-24">

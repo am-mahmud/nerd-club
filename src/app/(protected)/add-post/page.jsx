@@ -4,14 +4,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
-// import { useRouter } from "next/navigation";
+
+
+
 
 export default function AddPost() {
+
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState(""); 
 
-  // const router = useRouter();
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
