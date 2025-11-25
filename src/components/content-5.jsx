@@ -1,4 +1,4 @@
-import { Cpu, Lock, Sparkles, Zap } from 'lucide-react'
+import { Cpu, Handshake, Lock, Sparkles, SquareLibrary, Zap } from 'lucide-react'
 
 export default function ContentSection() {
     return (
@@ -23,32 +23,32 @@ export default function ContentSection() {
                     className="relative mx-auto grid grid-cols-2 gap-x-3 gap-y-6 sm:gap-8 lg:grid-cols-4">
                     <div className="space-y-3">
                         <div className="flex items-center gap-2">
+                            <Handshake className="size-4" />
+                            <h3 className="text-sm font-medium">Community Discussions</h3>
+                        </div>
+                        <p className="text-muted-foreground text-sm">Talk about programming, AI, research, cybersecurity, cloud computing, startups, productivity, and more.</p>
+                    </div>
+                    <div className="space-y-2">
+                        <div className="flex items-center gap-2">
                             <Zap className="size-4" />
-                            <h3 className="text-sm font-medium">Faaast</h3>
+                            <h3 className="text-sm font-medium">Learning Resources</h3>
                         </div>
-                        <p className="text-muted-foreground text-sm">It supports an entire helping developers and innovate.</p>
+                        <p className="text-muted-foreground text-sm">Curated guides, tutorials, articles, and research summaries for all levels — beginner to advanced.</p>
                     </div>
                     <div className="space-y-2">
                         <div className="flex items-center gap-2">
-                            <Cpu className="size-4" />
-                            <h3 className="text-sm font-medium">Powerful</h3>
+                            <SquareLibrary className="size-4" />
+                            <h3 className="text-sm font-medium">Research</h3>
                         </div>
-                        <p className="text-muted-foreground text-sm">It supports an entire helping developers and businesses.</p>
-                    </div>
-                    <div className="space-y-2">
-                        <div className="flex items-center gap-2">
-                            <Lock className="size-4" />
-                            <h3 className="text-sm font-medium">Security</h3>
-                        </div>
-                        <p className="text-muted-foreground text-sm">It supports an helping developers businesses innovate.</p>
+                        <p className="text-muted-foreground text-sm">Deep technical conversations for students, researchers, and engineers working on AI, IoT, ML, and advanced topics.</p>
                     </div>
                     <div className="space-y-2">
                         <div className="flex items-center gap-2">
                             <Sparkles className="size-4" />
 
-                            <h3 className="text-sm font-medium">AI Powered</h3>
+                            <h3 className="text-sm font-medium">Events & Workshops</h3>
                         </div>
-                        <p className="text-muted-foreground text-sm">It supports an helping developers businesses innovate.</p>
+                        <p className="text-muted-foreground text-sm">Technical webinars, live coding sessions, Q&A streams, and community meetups.</p>
                     </div>
                 </div>
             </div>

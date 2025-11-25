@@ -66,7 +66,7 @@ export default function HeroSection() {
                                 className="mt-12">
                                  <div className="md:pr-1.5 lg:pr-0">
                                             <Button aria-label="submit" size="lg" className="rounded-(--radius)">
-                                           <Link href="/register"><span className="hidden md:block">Get Started</span></Link>     
+                                           <Link href="/register"><span className="block">Get Started</span></Link>     
                                             </Button>
                                 </div>
 
