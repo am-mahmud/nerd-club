@@ -1,11 +1,14 @@
+import dbConnect from "@/lib/mongo";
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 import User from "@/models/User";
-import dbConnect from "@/lib/mongo";
+
+
 
 export async function POST(req) {
   try {
     await dbConnect();
+
     const { email, password } = await req.json();
 
     // Find user
