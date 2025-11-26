@@ -230,7 +230,7 @@ export default function RegisterPage() {
                 setMessage(data.error);
                 setLoading(false);
             } else {
-                setMessage("Account created successfully! Redirecting to login...");
+                setMessage("Account created successfully!");
                 setName("");
                 setEmail("");
                 setPassword("");

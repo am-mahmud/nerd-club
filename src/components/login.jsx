@@ -167,7 +167,7 @@ export default function LoginPage() {
                 setMessage("Invalid email or password");
                 setLoading(false);
             } else {
-                setMessage("Login successful! Redirecting...");
+                setMessage("Login successful!");
                 router.push('/dashboard');
                 router.refresh();
             }
@@ -179,9 +179,9 @@ export default function LoginPage() {
 
     const handleGoogleLogin = async () => {
         setLoading(true);
-        setMessage("Redirecting to Google...");
+        setMessage("Redirecting to Google..");
         try {
-            await signIn("google", { callbackUrl: '/dashboard' });
+            await signIn("google", { callbackUrl: '/' });
         } catch (error) {
             setMessage("Google login failed. Please try again.");
             setLoading(false);
