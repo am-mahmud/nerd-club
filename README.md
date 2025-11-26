@@ -41,6 +41,8 @@
 - Radix UI
 - Motion.js
 - Lucide Icons
+- Shadcn UI
+- Tailark Shadcn UI 
 
 ##### Backend
 - Next.js API Routes
@@ -74,4 +76,4 @@
 #### Visit: 👉 http://localhost:3000
 
 
-##### 🧑🏻‍💻 ⚙️ 🛠️  Developed By Asif Mahmud
+### 🧑🏻‍💻 ⚙️ 🛠️  Developed By Asif Mahmud
