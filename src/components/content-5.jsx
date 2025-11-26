@@ -20,7 +20,7 @@ export default function ContentSection() {
                     loading="lazy" />
 
                 <div
-                    className="relative mx-auto grid grid-cols-2 gap-x-3 gap-y-6 sm:gap-8 lg:grid-cols-4">
+                    className="relative mx-auto grid grid-cols-1 gap-x-3 gap-y-6 sm:gap-8 lg:grid-cols-4">
                     <div className="space-y-3">
                         <div className="flex items-center gap-2">
                             <Handshake className="size-4" />
