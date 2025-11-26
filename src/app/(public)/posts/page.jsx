@@ -55,11 +55,7 @@ const page = async () => {
 
       </AnimatedGroup>
 
-      {/* <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-6 mt-3">
-        {posts.map((post) => (
-          <PostCard key={post._id} post={post} />
-        ))}
-      </div> */}
+    
     </div>
   );
 };

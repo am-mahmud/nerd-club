@@ -236,7 +236,7 @@ export default function RegisterPage() {
                 setPassword("");
                 
                 setTimeout(() => {
-                    router.push('/login');
+                    router.push('/');
                 }, 1500);
             }
         } catch (error) {
@@ -309,7 +309,7 @@ export default function RegisterPage() {
                         </div>
                     )}
 
-                    {/* Registration Form */}
+                   
                     <form 
                         onSubmit={handleRegister}
                         className="space-y-5"
