@@ -24,6 +24,8 @@ export async function GET() {
   await dbConnect();
 
   try {
+
+    // const { id } = await params;
     const posts = await Post.find({});
     const total = await Post.countDocuments();
 

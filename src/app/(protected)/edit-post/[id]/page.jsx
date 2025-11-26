@@ -1,29 +1,30 @@
-"use client";
+import EditPost from "./EditPage";
 
-import React from 'react';
+const getPostById = async (id) => {
+  try {
+    const res = await fetch(`/api/posts/${id}`, {
+      cache: "no-store",
+    });
 
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
+    if (!res.ok) {
+      throw new Error("Failed to fetch post");
+    }
 
-const EditPostClient = () => {
-    return (
-        <div className="mx-auto max-w-6xl min-h-screen px-12 pt-24">
-            <h1 className="text-2xl font-semibold mb-4">Edit Post</h1>
-
-            <div className="space-y-4">
-
-                <Input placeholder="Post title..." />
-
-                <Textarea
-                    className="h-40"
-                    placeholder="Post content..."
-                />
-
-                <Button>Update</Button>
-            </div>
-        </div>
-    );
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-export default EditPostClient;
+export default async function Page({ params }) {
+  const { id } = params;
+  const data = await getPostById(id);
+
+  return (
+    <EditPost
+      id={id}
+      title={data.post.title}
+      description={data.post.description}
+    />
+  );
+}
