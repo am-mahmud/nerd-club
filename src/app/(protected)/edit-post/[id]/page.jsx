@@ -2,7 +2,7 @@ import EditPost from "./EditPage";
 
 const getPostById = async (id) => {
   try {
-    const res = await fetch(`/api/posts/${id}`, {
+    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts/${id}`, {
       cache: "no-store",
     });
 

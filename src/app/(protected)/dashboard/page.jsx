@@ -5,7 +5,7 @@ export default async function Dashboard() {
 
    const getPosts = async () => {
     try {
-      const apiUrl =`/api/posts`;
+      const apiUrl =`${process.env.NEXTAUTH_URL}/api/posts`;
 
       const res = await fetch(apiUrl, {
         method: "GET",
