@@ -2,8 +2,11 @@ import { NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 
 export const config = {
-  matcher: [
-    "/((?!login|register|api|_next|favicon.ico).*)"
+ matcher: [
+    "/dashboard/:path*",
+    "/add-post/:path*",
+    "/edit-post/:path*",
+    "/manage-posts/:path*"
   ],
 };
 
