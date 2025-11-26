@@ -12,7 +12,7 @@ export default function ContentSection() {
                     <p className='pb-3'>We are programmers, designers, researchers, engineers, and lifelong learners.Nerd Club is built on curiosity, creativity, and a shared passion for solving problems. We’re not just a tech community — we’re a safe environment where growth, exploration, and experimentation are encouraged every day.</p>
                 </div>
                 <img
-                    className="rounded-(--radius) grayscale"
+                    className="rounded-lg grayscale"
                     src="https://images.unsplash.com/photo-1616587226960-4a03badbe8bf?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                     alt="team image"
                     height=""

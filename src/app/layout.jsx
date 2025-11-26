@@ -17,6 +17,7 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "Nerd Club - Research Community",
   description: "Created by Species",
+  keywords: ["research", "community", "nerd club", "collaboration", "research help"]
 };
 
 export default function RootLayout({ children }) {
