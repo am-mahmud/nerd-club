@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## 📚 Nerd Club — Researcher Community Platform
 
-## Getting Started
+#### Nerd Club is a modern, interactive platform designed for researchers to ask questions, share insights, and engage with a like-minded research community.
+#### Built with Next.js, MongoDB, and NextAuth, it provides a fast, secure, and seamless user experience.
 
-First, run the development server:
+### 🚀 Features
+#### 🔐 Authentication 
+- Google Login with NextAuth
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+#### 📝 Posts & Interactions
 
-Open [NEXTAUTH_URL](NEXTAUTH_URL) with your browser to see the result.
+- Create post
+- Read all posts (Home feed)
+- Upvote / Downvote system
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+#### 📊 Dashboard
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- View and manage your posts
+- Edit or delete posts
+- Post management with responsive UI
 
-## Learn More
+#### 🎨 UI & Animation
 
-To learn more about Next.js, take a look at the following resources:
+- Modern, smooth UI built with Tailwind CSS
+- Animated components (motion + Radix UI)
+- Fully responsive layout
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### 🗄️ Backend
+- Next.js API Routes
+- MongoDB + Mongoose models
+- Secure hashing with bcrypt
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+#### 🛠️ Tech Stack
+##### Frontend
+- Next.js 16
+- React 19
+- TailwindCSS 4
+- Radix UI
+- Motion.js
+- Lucide Icons
 
-## Deploy on Vercel
+##### Backend
+- Next.js API Routes
+- MongoDB
+- Mongoose
+- bcrypt / bcryptjs
+- Authentication
+- NextAuth (Google Provider)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 📦 Installation & Setup
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1️⃣ Clone the Repository
+- git clone https://github.com/am-mahmud/nerd-club
+- cd nerd-club
+
+2️⃣ Install Dependencies
+- npm install
+
+3️⃣ Create .env.local File
+- Add the following environment variables:
+
+MONGODB_URI=your_mongodb_url
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your_secret_key
+
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+
+4️⃣ Run the Development Server
+- npm run dev
+
+
+#### Visit: 👉 http://localhost:3000
+
+
+##### Developed By Asif Mahmud
