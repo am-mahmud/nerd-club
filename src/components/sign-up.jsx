@@ -6,49 +6,63 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import Link from 'next/link'
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
-export default function LoginPage() {
-
+export default function RegisterPage() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
+    const [loading, setLoading] = useState(false);
+    const router = useRouter();
 
     const handleRegister = async (e) => {
         e.preventDefault();
+        setLoading(true);
+        setMessage("");
 
-        const res = await fetch(`/api/register`, {
-            method: "POST",
-            body: JSON.stringify({ name, email, password }),
-        });
+        try {
+            const res = await fetch(`/api/register`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ name, email, password }),
+            });
 
-        const data = await res.json();
+            const data = await res.json();
 
-        if (data.error) {
-            setMessage(data.error);
-        } else {
-            setMessage("Account created! You can now login.");
-        }
-
-        if (!data.error) {
-            setName("");
-            setEmail("");
-            setPassword("");
+            if (data.error) {
+                setMessage(data.error);
+                setLoading(false);
+            } else {
+                setMessage("Account created successfully! Redirecting to login...");
+                setName("");
+                setEmail("");
+                setPassword("");
+                
+                
+                setTimeout(() => {
+                    router.push('/login');
+                }, 1500);
+            }
+        } catch (error) {
+            setMessage("Something went wrong. Please try again.");
+            setLoading(false);
         }
     };
 
     return (
-        <section
-            className="flex min-h-screen  px-4 py-16 md:py-32 ">
-            <form onSubmit={handleRegister}
-                action=""
-                className="bg-card m-auto h-fit w-full max-w-sm rounded-[calc(var(--radius)+.125rem)] border p-0.5 shadow-md dark:[--color-muted:var(--color-zinc-900)]">
+        <section className="flex min-h-screen px-4 py-16 md:py-32">
+            <div 
+                className="bg-card m-auto h-fit w-full max-w-sm rounded-[calc(var(--radius)+.125rem)] border p-0.5 shadow-md dark:[--color-muted:var(--color-zinc-900)]"
+            >
                 <div className="p-8 pb-6">
                     <div>
                         <Link href="/" aria-label="go home">
                             <LogoIcon />
                         </Link>
-                        <h1 className="mb-1 mt-4 text-xl font-semibold">Create a Account</h1>
+                        <h1 className="mb-1 mt-4 text-xl font-semibold">Create an Account</h1>
                         <p className="text-sm">Welcome! Create an account to get started</p>
                     </div>
 
@@ -74,13 +88,21 @@ export default function LoginPage() {
                             </svg>
                             <span>Google</span>
                         </Button>
-
                     </div>
 
                     <hr className="my-4 border-dashed" />
 
-                    <div className="space-y-5">
+                    {message && (
+                        <div className={`mb-4 p-3 rounded text-sm ${
+                            message.includes('error') || message.includes('wrong')
+                                ? 'bg-red-50 text-red-600 border border-red-200'
+                                : 'bg-green-50 text-green-600 border border-green-200'
+                        }`}>
+                            {message}
+                        </div>
+                    )}
 
+                    <div className="space-y-5">
                         <div className="space-y-2">
                             <Label htmlFor="name" className="block text-sm">
                                 Name
@@ -92,14 +114,19 @@ export default function LoginPage() {
                                 id="name"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
+                                disabled={loading}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') {
+                                        e.preventDefault();
+                                        handleRegister(e);
+                                    }
+                                }}
                             />
-
                         </div>
-
 
                         <div className="space-y-2">
                             <Label htmlFor="email" className="block text-sm">
-                                Username
+                                Email
                             </Label>
                             <Input
                                 type="email"
@@ -108,8 +135,14 @@ export default function LoginPage() {
                                 id="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
+                                disabled={loading}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') {
+                                        e.preventDefault();
+                                        handleRegister(e);
+                                    }
+                                }}
                             />
-
                         </div>
 
                         <div className="space-y-2">
@@ -123,23 +156,36 @@ export default function LoginPage() {
                                 id="pwd"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
+                                disabled={loading}
+                                minLength={6}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') {
+                                        e.preventDefault();
+                                        handleRegister(e);
+                                    }
+                                }}
                             />
-
                         </div>
 
-                        <Button type="submit" className="w-full">Continue</Button>
+                        <Button 
+                            onClick={handleRegister} 
+                            className="w-full" 
+                            disabled={loading}
+                        >
+                            {loading ? "Creating Account..." : "Continue"}
+                        </Button>
                     </div>
                 </div>
 
                 <div className="bg-muted rounded-(--radius) border p-3">
                     <p className="text-accent-foreground text-center text-sm">
-                        Have an account ?
+                        Have an account?
                         <Button asChild variant="link" className="px-2">
-                            <Link href="#">Sign In</Link>
+                            <Link href="/login">Sign In</Link>
                         </Button>
                     </p>
                 </div>
-            </form>
+            </div>
         </section>
     );
 }
