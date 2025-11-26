@@ -7,9 +7,10 @@ const page = async () => {
 
   const getPosts = async () => {
     try {
-      const res = await fetch(`/api/posts`, {
-        cache: 'no-store',
-      });
+       const baseUrl = process.env.NEXTAUTH_URL;
+    const res = await fetch(`${baseUrl}/api/posts`, {
+      cache: 'no-store',
+    });
 
       const data = await res.json();
       return data.posts;
