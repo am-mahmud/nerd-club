@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default async function Dashboard() {
@@ -6,7 +5,7 @@ export default async function Dashboard() {
 
    const getPosts = async () => {
     try {
-      const apiUrl = "http://localhost:3000/api/posts";
+      const apiUrl = "NEXTAUTH_URL/api/posts";
 
       const res = await fetch(apiUrl, {
         method: "GET",
