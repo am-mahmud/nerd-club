@@ -7,16 +7,27 @@ import React from 'react'
 import { cn } from '@/lib/utils'
 import { useSession, signOut } from "next-auth/react";
 
-const menuItems = [
-    { name: 'Home', href: '/' },
-    { name: 'Posts', href: '/posts' },
-    { name: 'About', href: '/about' },
-]
+
 
 export const HeroHeader = () => {
     const [menuState, setMenuState] = React.useState(false)
     const [isScrolled, setIsScrolled] = React.useState(false)
     const { data: session } = useSession();
+
+    const menuItems = [
+    { name: 'Home', href: '/' },
+    { name: 'Posts', href: '/posts' },
+    { name: 'About', href: '/about' },
+
+]
+
+if (session) {
+  menuItems.push(
+    { name: 'Dashboard', href: '/dashboard' },
+    { name: 'Manage Post', href: '/manage-post' },
+    { name: 'Add Post', href: '/add-post' }
+  );
+}
 
     React.useEffect(() => {
         const handleScroll = () => {
