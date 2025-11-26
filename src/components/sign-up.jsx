@@ -370,7 +370,7 @@ export default function RegisterPage() {
                             onClick={handleRegister} 
                             className="w-full" 
                             disabled={loading}
-                            type="button"
+                            type="submit"
                         >
                             {loading ? "Creating Account..." : "Continue"}
                         </Button>

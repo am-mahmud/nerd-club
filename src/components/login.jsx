@@ -282,7 +282,7 @@ export default function LoginPage() {
                             onClick={handleLogin} 
                             className="w-full" 
                             disabled={loading}
-                            type="button"
+                            type="submit"
                         >
                             {loading ? "Signing in..." : "Sign In"}
                         </Button>
