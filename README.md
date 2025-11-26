@@ -3,6 +3,9 @@
 #### Nerd Club is a modern, interactive platform designed for researchers to ask questions, share insights, and engage with a like-minded research community.
 #### Built with Next.js, MongoDB, and NextAuth, it provides a fast, secure, and seamless user experience.
 
+### 🔗 Live Link: https://nerd-club-am.vercel.app/
+
+
 ### 🚀 Features
 #### 🔐 Authentication 
 - Google Login with NextAuth
@@ -58,13 +61,11 @@
 
 3️⃣ Create .env.local File
 - Add the following environment variables:
-
-MONGODB_URI=your_mongodb_url
-NEXTAUTH_URL=http://localhost:3000
-NEXTAUTH_SECRET=your_secret_key
-
-GOOGLE_CLIENT_ID=your_google_client_id
-GOOGLE_CLIENT_SECRET=your_google_client_secret
+- MONGODB_URI=your_mongodb_url
+- NEXTAUTH_URL=http://localhost:3000
+- NEXTAUTH_SECRET=your_secret_key
+- GOOGLE_CLIENT_ID=your_google_client_id
+- GOOGLE_CLIENT_SECRET=your_google_client_secret
 
 4️⃣ Run the Development Server
 - npm run dev
@@ -73,4 +74,4 @@ GOOGLE_CLIENT_SECRET=your_google_client_secret
 #### Visit: 👉 http://localhost:3000
 
 
-##### Developed By Asif Mahmud
+##### 🧑🏻‍💻 ⚙️ 🛠️  Developed By Asif Mahmud
