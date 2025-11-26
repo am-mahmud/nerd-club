@@ -9,7 +9,7 @@ const page = async () => {
     try {
        const baseUrl = process.env.NEXTAUTH_URL;
     const res = await fetch(`${baseUrl}/api/posts`, {
-      cache: 'no-store',
+      next: { revalidate: 1 },
     });
 
       const data = await res.json();
