@@ -1,30 +1,64 @@
 import EditPost from "./EditPage";
+import { notFound } from "next/navigation";
 
 const getPostById = async (id) => {
+  const base = process.env.NEXTAUTH_URL;
+  
   try {
-    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts/${id}`, {
+    const res = await fetch(`${base}/api/posts/${id}`, {
       cache: "no-store",
     });
 
     if (!res.ok) {
-      throw new Error("Failed to fetch post");
+      if (res.status === 404) {
+        return null; // Post not found
+      }
+      throw new Error(`Failed to fetch post: ${res.status}`);
     }
 
-    return res.json();
+    const data = await res.json();
+    
+    if (!data.success || !data.post) {
+      return null;
+    }
+    
+    return data;
   } catch (error) {
-    console.log(error);
+    console.error("Error fetching post:", error);
+    throw error; // Re-throw to handle in Page component
   }
 };
 
 export default async function Page({ params }) {
-  const { id } = params;
-  const data = await getPostById(id);
+  const { id } = await params;
+  
+  try {
+    const data = await getPostById(id);
+    
+    // If post not found, show 404
+    if (!data || !data.post) {
+      notFound();
+    }
 
-  return (
-    <EditPost
-      id={id}
-      title={data.post.title}
-      description={data.post.description}
-    />
-  );
+    return (
+      <EditPost
+        id={id}
+        title={data.post.title}
+        description={data.post.description}
+      />
+    );
+  } catch (error) {
+    return (
+      <div className="mx-auto max-w-6xl min-h-screen px-12 pt-24">
+        <div className="border border-cyan-200 rounded-lg p-6">
+          <h1 className="text-xl font-semibold text-cyan-800 mb-2">
+            Error Loading Post
+          </h1>
+          <p className="text-cyan-600">
+            Failed to load the post. Please try again later.
+          </p>
+        </div>
+      </div>
+    );
+  }
 }
