@@ -24,7 +24,7 @@ export const HeroHeader = () => {
 if (session) {
   menuItems.push(
     { name: 'Dashboard', href: '/dashboard' },
-    { name: 'Manage Post', href: '/manage-post' },
+    { name: 'Manage Post', href: '/manage-posts' },
     { name: 'Add Post', href: '/add-post' }
   );
 }

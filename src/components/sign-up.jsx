@@ -17,7 +17,7 @@ export default function LoginPage() {
     const handleRegister = async (e) => {
         e.preventDefault();
 
-        const res = await fetch("/api/register", {
+        const res = await fetch(`/api/register`, {
             method: "POST",
             body: JSON.stringify({ name, email, password }),
         });

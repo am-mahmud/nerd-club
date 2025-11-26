@@ -16,7 +16,7 @@ export default function ManagePosts() {
   const [posts, setPosts] = useState([]);
   const getPosts = async () => {
     try {
-      const res = await fetch("/api/posts", { cache: "no-store" });
+      const res = await fetch(`/api/posts`, { cache: "no-store" });
       const data = await res.json();
       setPosts(data.posts);
     } catch (error) {

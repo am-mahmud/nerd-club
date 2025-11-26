@@ -7,7 +7,7 @@ const page = async () => {
 
   const getPosts = async () => {
     try {
-      const res = await fetch("NEXTAUTH_URL/api/posts", {
+      const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts`, {
         cache: 'no-store',
       });
 

@@ -15,7 +15,7 @@ const AddPostClient = () => {
         e.preventDefault();
 
         try {
-            const res = await fetch("NEXTAUTH_URL/api/posts", {
+            const res = await fetch(`/api/posts`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
