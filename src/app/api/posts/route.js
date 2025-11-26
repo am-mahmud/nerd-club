@@ -1,59 +1,22 @@
-// import { NextResponse } from 'next/server';
-// import Post from '@/models/Post';
-// import dbConnect from '@/lib/mongo';
-
-// export async function POST(req) {
-//   await dbConnect();
-
-//   try {
-//     const { title, description } = await req.json();
-
-//     const post = await Post.create({ title, description });
-
-//     return NextResponse.json({ success: true, post });
-
-//   } catch (err) {
-//     console.error(err);
-//     return NextResponse.json(
-//       { success: false, error: err.message },
-//       { status: 500 }
-//     );
-//   }
-// }
-
-// export async function GET() {
-//   await dbConnect();
-
-//   try {
-
-//     // const { id } = await params;
-//     const posts = await Post.find({});
-//     const total = await Post.countDocuments();
-
-//     return NextResponse.json({
-//       success: true,
-//       posts,
-//       totalPosts: total,     
-//     });
-//   } catch (err) {
-//     console.error(err);
-//     return NextResponse.json(
-//       { success: false, error: err.message },
-//       { status: 500 }
-//     );
-//   }
-// }
-
-
-
 import { NextResponse } from 'next/server';
 import Post from '@/models/Post';
 import dbConnect from '@/lib/mongo';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
 
 export async function POST(req) {
   await dbConnect();
 
   try {
+    const session = await getServerSession(authOptions);
+    
+    if (!session) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized. Please log in." },
+        { status: 401 }
+      );
+    }
+
     const { title, description } = await req.json();
 
     if (!title || !description) {
@@ -65,7 +28,9 @@ export async function POST(req) {
 
     const post = await Post.create({ 
       title: title.trim(), 
-      description: description.trim()
+      description: description.trim(),
+      author: session.user.id,
+      authorEmail: session.user.email
     });
 
     console.log("Created post:", post);
@@ -81,15 +46,31 @@ export async function POST(req) {
   }
 }
 
-export async function GET() {
+export async function GET(req) {
   await dbConnect();
 
   try {
-    // Sort by createdAt descending (newest first)
-    const posts = await Post.find({}).sort({ createdAt: -1 }).lean();
-    const total = await Post.countDocuments();
+    const session = await getServerSession(authOptions);
+    const { searchParams } = new URL(req.url);
+    const userOnly = searchParams.get('userOnly') === 'true';
 
-    console.log("Fetched posts:", posts.length);
+    let query = {};
+    
+    if (userOnly) {
+      if (!session?.user?.email) {
+        return NextResponse.json(
+          { success: false, error: "Unauthorized" },
+          { status: 401 }
+        );
+      }
+      query = { authorEmail: session.user.email };
+    }
+
+  
+    const posts = await Post.find(query).sort({ createdAt: -1 }).lean();
+    const total = await Post.countDocuments(query);
+
+    console.log("Fetched posts:", posts.length, "Query:", query);
 
     return NextResponse.json({
       success: true,
