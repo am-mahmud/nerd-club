@@ -6,10 +6,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 
+
 const AddPostClient = () => {
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+
+  
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -27,6 +30,7 @@ const AddPostClient = () => {
 
             setTitle("");
             setDescription("");
+            
 
         } catch (error) {
             console.error("Error creating post:", error);
