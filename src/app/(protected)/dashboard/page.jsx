@@ -1,29 +1,31 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
-import { redirect } from "next/navigation";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default async function Dashboard() {
 
-  // const session = await getServerSession(authOptions);
 
-  //  if (!session) {
-  //   redirect("/login");
-  // }
-
-  const getPosts = async () => {
+   const getPosts = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/posts", {
+      const apiUrl = "http://localhost:3000/api/posts";
+
+      const res = await fetch(apiUrl, {
+        method: "GET",
         cache: "no-store",
       });
 
+      if (!res.ok) {
+        console.error("API ERROR:", res.status, res.statusText);
+        return { totalPosts: 0 };
+      }
+
       const data = await res.json();
+
       return {
-        totalPosts: data.totalPosts || 0,
+        totalPosts: data?.totalPosts ?? 0,
       };
+
     } catch (error) {
-      console.log("Error fetching posts:", error);
+      console.error("Dashboard Fetch Error:", error);
       return { totalPosts: 0 };
     }
   };

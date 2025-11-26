@@ -2,47 +2,58 @@ import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongo';
 import Post from '@/models/Post';
 
-export async function PUT(req, context) {
-    await dbConnect();
-    
-    try {
-        const params = await context.params;  
-        const id = params.id;
-        console.log("PARAM ID =", id);
-
-        const body = await req.json();
-        console.log("BODY =", body);
-
-        const { title, description } = body;
-
-        const post = await Post.findByIdAndUpdate(
-            id,
-            { title, description },
-            { new: true }
-        );
-
-        return NextResponse.json({ success: true, post });
-    } catch (err) {
-        console.error(err);
-        return NextResponse.json(
-            { success: false, error: err.message },
-            { status: 500 }
-        );
-    }
-}
-
-export async function DELETE(req) {
+export async function PUT(req, { params }) {
   await dbConnect();
 
-    try {
-        const { id } = await req.json();
-        await Post.findByIdAndDelete(id);
-        return NextResponse.json({ success: true });
-    } catch (err) {
-        console.error(err);
-        return NextResponse.json(
-            { success: false, error: err.message },
-            { status: 500 }
-        );
+  try {
+    const { id } = params;
+
+    const { title, description } = await req.json();
+
+    const updated = await Post.findByIdAndUpdate(
+      id,
+      { title, description },
+      { new: true }
+    );
+
+    if (!updated) {
+      return NextResponse.json(
+        { success: false, error: "Post not found" },
+        { status: 404 }
+      );
     }
+
+    return NextResponse.json({ success: true, post: updated });
+  } catch (err) {
+    return NextResponse.json(
+      { success: false, error: err.message },
+      { status: 500 }
+    );
+  }
+}
+
+
+export async function DELETE(req, { params }) {
+  await dbConnect();
+
+  try {
+    const { id } = params;  
+
+    const deleted = await Post.findByIdAndDelete(id);
+
+    if (!deleted) {
+      return NextResponse.json(
+        { success: false, error: "Post not found" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json({ success: true });
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json(
+      { success: false, error: err.message },
+      { status: 500 }
+    );
+  }
 }

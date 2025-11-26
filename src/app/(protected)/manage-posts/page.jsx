@@ -48,43 +48,46 @@ export default function ManagePosts() {
     <div className="mx-auto max-w-6xl min-h-screen px-12 pt-24">
       <h1 className="text-xl font-semibold mb-4">Manage Posts</h1>
 
-      <Table className="table-fixed w-full">
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-1/2">Title</TableHead>
-            <TableHead>Date</TableHead>
-            <TableHead className="w-40">Actions</TableHead>
-          </TableRow>
-        </TableHeader>
-
-        <TableBody>
-          {posts.map((post) => (
-            <TableRow key={post._id}>
-              <TableCell>{post.title}</TableCell>
-              <TableCell>
-                {new Date(post.createdAt).toLocaleDateString()}
-              </TableCell>
-
-              <TableCell>
-                <Link href={`/edit-post/${post._id}`}>
-                  <Button size="sm" variant="outline">
-                    Edit
-                  </Button>
-                </Link>
-
-                <Button
-                  onClick={() => deletePost(post._id)}
-                  size="sm"
-                  variant="destructive"
-                  className="ml-2"
-                >
-                  Delete
-                </Button>
-              </TableCell>
+      <div className="overflow-x-auto rounded-lg border">
+        <Table className="min-w-[600px] w-full">
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-1/2">Title</TableHead>
+              <TableHead>Date</TableHead>
+              <TableHead className="w-40">Actions</TableHead>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHeader>
+
+          <TableBody>
+            {posts.map((post) => (
+              <TableRow key={post._id}>
+                <TableCell>{post.title}</TableCell>
+
+                <TableCell>
+                  {new Date(post.createdAt).toLocaleDateString()}
+                </TableCell>
+
+                <TableCell>
+                  <Link href={`/edit-post/${post._id}`}>
+                    <Button size="sm" variant="outline">
+                      Edit
+                    </Button>
+                  </Link>
+
+                  <Button
+                    onClick={() => deletePost(post._id)}
+                    size="sm"
+                    variant="destructive"
+                    className="ml-2"
+                  >
+                    Delete
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 }

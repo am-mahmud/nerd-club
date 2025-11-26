@@ -30,7 +30,7 @@ export async function GET() {
     return NextResponse.json({
       success: true,
       posts,
-      totalPosts: total,      
+      totalPosts: total,     
     });
   } catch (err) {
     console.error(err);

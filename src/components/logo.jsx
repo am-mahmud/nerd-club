@@ -30,7 +30,7 @@ export const Logo = ({
         //     </defs>
         // </svg>
         <div>
-            <h1>Nerd Club</h1>
+            <h1 className='font-bold text-xl'>Nerd Club</h1>
         </div>
     );
 }
@@ -64,7 +64,7 @@ export const LogoIcon = ({
         //     </defs>
         // </svg>
          <div>
-            <h1>Nerd Club</h1>
+            <h1 className='font-bold text-xl'>Nerd Club</h1>
         </div>
     );
 }
@@ -85,7 +85,7 @@ export const LogoStroke = ({
         //         stroke="currentColor" />
         // </svg>
          <div>
-            <h1>Nerd Club</h1>
+            <h1 className='font-bold text-xl'>Nerd Club</h1>
         </div>
     );
 }
