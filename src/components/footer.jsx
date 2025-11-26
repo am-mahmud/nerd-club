@@ -3,15 +3,15 @@ import Link from 'next/link'
 const links = [
     {
         title: 'Home',
-        href: '#',
+        href: '/',
     },
     {
         title: 'Posts',
-        href: '#',
+        href: '/posts',
     },
     {
         title: 'About',
-        href: '#',
+        href: '/about',
     },
 ]
 

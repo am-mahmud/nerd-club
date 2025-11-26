@@ -11,7 +11,7 @@ const getPostById = async (id) => {
 
     if (!res.ok) {
       if (res.status === 404) {
-        return null; // Post not found
+        return null; 
       }
       throw new Error(`Failed to fetch post: ${res.status}`);
     }
@@ -25,7 +25,7 @@ const getPostById = async (id) => {
     return data;
   } catch (error) {
     console.error("Error fetching post:", error);
-    throw error; // Re-throw to handle in Page component
+    throw error; 
   }
 };
 
@@ -35,7 +35,7 @@ export default async function Page({ params }) {
   try {
     const data = await getPostById(id);
     
-    // If post not found, show 404
+ 
     if (!data || !data.post) {
       notFound();
     }
