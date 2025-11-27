@@ -24,6 +24,7 @@ export default function ManagePosts() {
         cache: "no-store" 
       });
       const data = await res.json();
+
       setPosts(data.posts || []);
     } catch (error) {
       console.error("Error fetching posts:", error);

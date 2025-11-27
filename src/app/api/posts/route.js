@@ -3,6 +3,7 @@ import Post from '@/models/Post';
 import dbConnect from '@/lib/mongo';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
+import mongoose from 'mongoose';
 
 export async function POST(req) {
   await dbConnect();
@@ -57,13 +58,14 @@ export async function GET(req) {
     let query = {};
 
     if (userOnly) {
-      if (!session?.user?.email) {
+      if (!session?.user?.id) {
         return NextResponse.json(
           { success: false, error: "Unauthorized" },
           { status: 401 }
         );
       }
-      query = { authorEmail: session.user.email };
+      const userId = new mongoose.Types.ObjectId(session.user.id);
+      query = { author: userId };
     }
 
     const page = Number(searchParams.get("page")) || 1;

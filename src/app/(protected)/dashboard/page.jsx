@@ -4,6 +4,7 @@ import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import dbConnect from "@/lib/mongo";
 import Post from "@/models/Post";
+import mongoose from "mongoose";
 
 export default async function Dashboard() {
   const session = await getServerSession(authOptions);
@@ -16,12 +17,15 @@ export default async function Dashboard() {
     try {
       await dbConnect();
       
-      const posts = await Post.find({ authorEmail: session.user.email })
+      const userId = new mongoose.Types.ObjectId(session.user.id);
+      
+      const posts = await Post.find({ author: userId })
         .sort({ createdAt: -1 })
         .lean()
         .exec();
+    
       
-      const total = await Post.countDocuments({ authorEmail: session.user.email });
+      const total = await Post.countDocuments({ author: userId });
 
       const serializedPosts = posts.map(post => ({
         ...post,
