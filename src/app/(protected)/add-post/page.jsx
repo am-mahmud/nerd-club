@@ -40,6 +40,7 @@ const AddPostClient = () => {
 
     return (
         <div className="mx-auto max-w-6xl min-h-screen px-12 pt-24">
+            <title>Add Post</title>
             <h1 className="text-2xl font-semibold mb-6">Create New Post</h1>
 
             <form onSubmit={handleSubmit} className="space-y-4">

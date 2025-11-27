@@ -24,6 +24,7 @@ const page = async () => {
 
   return (
     <div className='relative mx-auto max-w-6xl min-h-screen px-12 pt-24'>
+      <title>All Posts</title>
       <TextEffect
         preset="fade-in-blur"
         speedSegment={0.3}

@@ -89,6 +89,7 @@ export default function ManagePosts() {
 
   return (
     <div className="mx-auto max-w-6xl min-h-screen px-12 pt-24">
+      <title>Manage Posts</title>
       <div className="flex justify-between items-center mb-4">
         <div>
           <h1 className="text-xl font-semibold">Manage Your Posts</h1>

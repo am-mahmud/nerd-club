@@ -41,6 +41,7 @@ export default function EditPost({ id, title, description }) {
 
   return (
     <div className="mx-auto max-w-6xl min-h-screen px-12 pt-24">
+      <title>Post Edit</title>
       <h1 className="text-2xl font-semibold mb-4">Edit Post</h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">

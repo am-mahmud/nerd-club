@@ -45,6 +45,7 @@ export default async function Dashboard() {
 
   return (
     <div className="mx-auto max-w-6xl min-h-screen px-6 pt-24">
+      <title>Dashboard</title>
       <div className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight">
           Welcome back, {session.user?.name || 'User'}!
