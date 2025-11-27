@@ -6,7 +6,6 @@ export async function GET(req, context) {
   await dbConnect();
 
   try {
-    // Await params in Next.js 15
     const { id } = await context.params;
 
     const post = await Post.findById(id);
@@ -32,7 +31,6 @@ export async function PUT(req, context) {
   await dbConnect();
 
   try {
-    // Await params in Next.js 15
     const { id } = await context.params;
 
     const { title, description } = await req.json();
@@ -64,7 +62,6 @@ export async function DELETE(req, context) {
   await dbConnect();
 
   try {
-    // Await params in Next.js 15
     const { id } = await context.params;
 
     const deleted = await Post.findByIdAndDelete(id);

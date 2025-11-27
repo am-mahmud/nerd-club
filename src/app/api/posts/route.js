@@ -9,7 +9,7 @@ export async function POST(req) {
 
   try {
     const session = await getServerSession(authOptions);
-    
+
     if (!session) {
       return NextResponse.json(
         { success: false, error: "Unauthorized. Please log in." },
@@ -26,8 +26,8 @@ export async function POST(req) {
       );
     }
 
-    const post = await Post.create({ 
-      title: title.trim(), 
+    const post = await Post.create({
+      title: title.trim(),
       description: description.trim(),
       author: session.user.id,
       authorEmail: session.user.email
@@ -36,7 +36,7 @@ export async function POST(req) {
     console.log("Created post:", post);
 
     return NextResponse.json({ success: true, post });
-    
+
   } catch (err) {
     console.error("Error creating post:", err);
     return NextResponse.json(
@@ -55,7 +55,7 @@ export async function GET(req) {
     const userOnly = searchParams.get('userOnly') === 'true';
 
     let query = {};
-    
+
     if (userOnly) {
       if (!session?.user?.email) {
         return NextResponse.json(
@@ -66,8 +66,12 @@ export async function GET(req) {
       query = { authorEmail: session.user.email };
     }
 
-  
-    const posts = await Post.find(query).sort({ createdAt: -1 }).lean();
+    const page = Number(searchParams.get("page")) || 1;
+    const limit = Number(searchParams.get("limit")) || 6;
+
+    const skip = (page - 1) * limit;
+
+    const posts = await Post.find(query).sort({ createdAt: -1 }).skip(skip).limit(limit).lean();
     const total = await Post.countDocuments(query);
 
     console.log("Fetched posts:", posts.length, "Query:", query);
@@ -75,7 +79,9 @@ export async function GET(req) {
     return NextResponse.json({
       success: true,
       posts,
-      totalPosts: total,     
+      totalPosts: total,
+      totalPages: Math.ceil(total / limit),
+      currentPage: page,
     });
   } catch (err) {
     console.error("Error fetching posts:", err);
