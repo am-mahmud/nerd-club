@@ -9,12 +9,16 @@
 ### 🚀 Features
 #### 🔐 Authentication 
 - Google Login with NextAuth
+- Credential Login with NextAuth
+- Protected routes for posting, voting, and dashboard access
 
 #### 📝 Posts & Interactions
 
 - Create post
-- Read all posts (Home feed)
+- Read all posts
 - Upvote / Downvote system
+- Prevents multiple votes from the same user
+- Dynamic vote count update (no page refresh)
 
 #### 📊 Dashboard
 
@@ -25,13 +29,15 @@
 #### 🎨 UI & Animation
 
 - Modern, smooth UI built with Tailwind CSS
-- Animated components (motion + Radix UI)
+- Animated components (motion + Radix UI + Tailark UI)
 - Fully responsive layout
 
 #### 🗄️ Backend
 - Next.js API Routes
-- MongoDB + Mongoose models
-- Secure hashing with bcrypt
+- MongoDB + Mongoose
+- bcrypt password hashing
+- Secure authentication using NextAuth
+- REST API with pagination support
 
 #### 🛠️ Tech Stack
 ##### Frontend
@@ -74,6 +80,21 @@
 
 
 #### Visit: 👉 http://localhost:3000
+
+
+### ✔ Roadmap (future improvements)
+
+- Comment system
+- Profile pages
+- Tag-based filtering
+- Search function
+- Real-time updates (WebSocket / Pusher)
+- AI answer summarizer 
+
+
+
+
+✔ API Endpoints Documentation
 
 
 ### 🧑🏻‍💻 ⚙️ 🛠️  Developed By Asif Mahmud

@@ -68,7 +68,7 @@ export function PostCard({ post }) {
     <>
 
       {showAlert && (
-        <Alert className="mb-4">
+        <Alert className="mb-4 text-cyan-700">
           <CheckCircle2Icon className="h-4 w-4" />
           <AlertTitle>You must be logged in!</AlertTitle>
           <AlertDescription>
