@@ -5,7 +5,7 @@ import User from "@/models/User";
 import bcrypt from "bcryptjs";
 
 export const authOptions = {
-  session: { strategy: "jwt" },
+  session: { strategy: "jwt" }, 
 
   providers: [
     GoogleProvider({

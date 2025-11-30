@@ -77,13 +77,13 @@ export function PostCard({ post }) {
         </Alert>
       )}
 
-      <Card className="hover:shadow-md transition">
+      <Card className="hover:shadow-md transition max-w-full overflow-hidden">
         <CardHeader>
-          <h2 className="font-bold text-base">{post.title}</h2>
+          <h2 className="font-bold text-base truncate">{post.title}</h2>
         </CardHeader>
 
         <CardContent>
-          <p className="text-sm text-gray-600 pb-6">{post.description}</p>
+          <p className="text-sm text-gray-600 pb-6 wrap-break-word line-clamp-3">{post.description}</p>
 
           <div className="flex items-center gap-4">
 
